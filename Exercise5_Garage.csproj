@@ -7,4 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Garage.Tester\**" />
+    <EmbeddedResource Remove="Garage.Tester\**" />
+    <None Remove="Garage.Tester\**" />
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Runtime.CompilerServices;
-[assembly: InternalsVisibleTo("Exercise5.Tester")]
+[assembly: InternalsVisibleTo("Garage.Tester")]
 
 namespace Exercise5_Garage
 {
