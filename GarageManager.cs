@@ -43,7 +43,7 @@ namespace Exercise5_Garage
                         CreateNewLocation();
                         break;
                     case "5":
-                        PopulateLocation(); //NOT IMPLEMENTED
+                        PopulateLocation();
                         break;
                     case "6":
                         handler.FindPlateInGarage(UI.GetString("Please enter the registry plate of the vehicle you wish to search for."), garage);
