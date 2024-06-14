@@ -4,16 +4,17 @@ namespace Exercise5_Garage.UI
 {
     internal class UserInterface
     {
-        internal string GetMenu()
+        internal string GetMenu(string garage)
         {
-            return "Garage Menu: " +
+            return $"{garage} Menu: " +
                 "\n1. List the parked vehicles." +
                 "\n2. List the type of vehicles." +
-                "\n3. Arrivals and departures." + //ToDo: arrival of new car, create car and let it park.
-                "\n4. Create new garage with a set capacity." + //ToDo
-                "\n5. Populate the garage from file." + //ToDo
+                "\n3. Arrivals and departures." +
+                "\n4. Create new location with a set capacity." +
+                "\n5. Populate the location from a preset of vehicles." +
                 "\n6. Search for plate." +
                 "\n7. Search based on property." + //ToDo
+                "\n0. Switch location." +
                 "\nExit - to close the program.";
         }
 

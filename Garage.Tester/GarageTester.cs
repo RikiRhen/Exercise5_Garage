@@ -5,7 +5,7 @@ namespace Exercise5.Tester
 {
     public class GarageTester
     {
-        Garage<Vehicle> garage = new(50);
+        Garage<Vehicle> garage = new(50, "test");
         Car car = new("BAB113", "Audi", "R8", "Supercar", "Copper", "512");
         Car car2 = new("CCA 332", "Lamborghini", "Murcielago", "Supercar", "Metallic", "114");
         Bus bus = new("BAB002", "Scania", "K94UB", "Bus", "Blue", false);
@@ -23,7 +23,7 @@ namespace Exercise5.Tester
         public void RemoveVehicle()
         {
             garage.ParkVehicle(car);
-            bool result = garage.RemoveVehicle("BAB113");
+            bool result = garage.VehicleDeparture("BAB113");
             Assert.True(result);
             Assert.DoesNotContain(car, garage.ListVehicles());
         }
@@ -63,6 +63,34 @@ namespace Exercise5.Tester
 
             Assert.True(garage.FindPlate("BAB113"));
             Assert.False(garage.FindPlate("nah"));
+        }
+
+        [Fact]
+        public void AddKnownVehicle_IsCorrectlyAddingNewVehicleToListOfKnownVehicles()
+        {
+            bool result = garage.AddKnownVehicle(car);
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void IsVehicleKnown_IsCorrectlyReturningKnownVehicles()
+        {
+            garage.AddKnownVehicle(car);
+            bool result = garage.IsVehicleKnown(car.Reg);
+            Assert.True(result);
+            result = garage.IsVehicleKnown(car2.Reg);
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void RemoveKnownVehicle_IsCorrectlyRemovingVehicles()
+        {
+            garage.AddKnownVehicle(car);
+            garage.AddKnownVehicle(car2);
+            bool result = garage.RemoveKnownVehicle(car2.Reg);
+            Assert.True(result);
+            result = garage.IsVehicleKnown(car2.Reg);
+            Assert.False(result);
         }
     }
 }

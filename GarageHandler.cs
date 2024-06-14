@@ -15,18 +15,22 @@ namespace Exercise5_Garage
 
         internal void ParkVehicle(Vehicle vehicle, Garage<Vehicle> garage)
         {
-            if (garage.ParkVehicle(vehicle)) { Console.WriteLine($"{vehicle.Make} {vehicle.Model} {vehicle.Reg}, was parked successfully."); }
+            if (garage.ParkVehicle(vehicle)) 
+            { 
+                Console.WriteLine($"{vehicle.Make} {vehicle.Model} {vehicle.Reg}, was parked successfully."); 
+            }
         }
 
         internal void RemoveVehicle(string reg, Garage<Vehicle> garage)
         {
-            if (garage.RemoveVehicle(reg)) { Console.WriteLine($"{reg} has left the garage."); }
+            if (garage.VehicleDeparture(reg)) { Console.WriteLine($"{reg} has left the garage."); }
             else { Console.WriteLine(NOSUCHCAR); }
         }
 
         internal void ListVehicles(Garage<Vehicle> garage)
         {
             foreach (Vehicle v in garage.ListVehicles()) { Console.WriteLine(v); }
+            UI.PrintSpaces(garage.OneTimeUseMethodThatOnlyExistsForAestheticsAndNeverAgain());
         }
 
         internal void ListTypes(Garage<Vehicle> garage)
@@ -130,6 +134,12 @@ namespace Exercise5_Garage
         {
             if (garage.FindPlate(plate)) { Console.WriteLine($"A vehicle with the registry number {plate} is parked in the garage."); }
             else { Console.WriteLine(NOSUCHCAR); }
+        }
+
+        internal bool ParkKnownVehicle(string reg, Garage<Vehicle> garage)
+        {
+            if (garage.IsVehicleKnown(reg)) { garage.ParkKnownVehicle(reg); return true; } 
+            else { return false; }
         }
     }
 }

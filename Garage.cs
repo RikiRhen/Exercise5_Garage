@@ -4,14 +4,18 @@ namespace Exercise5_Garage
 {
     internal class Garage<T> : IEnumerable<T> where T : Vehicle
     {
-        private static int _capacity;
+        public string Name { get; }
+        public int Capacity { get; }
         private T[] _vehicles;
-        private int _freeSpots = _capacity;
+        private int _freeSpots;
+        private Dictionary<string, T> _knownVehicles = new();
 
-        internal Garage(int capacity)
+        internal Garage(int capacity, string name)
         {
-            _capacity = capacity;
             _vehicles = new T[capacity];
+            _freeSpots = capacity;
+            Capacity = capacity;
+            Name = name;
         }
 
         internal bool FindPlate(string plate)
@@ -24,6 +28,32 @@ namespace Exercise5_Garage
                 }
             }
             return false;
+        }
+
+        internal bool AddKnownVehicle(T item)
+        {
+            if (_knownVehicles!.ContainsKey(item.Reg)) { return false; }
+            else { _knownVehicles.Add(item.Reg, item); return true; }
+        }
+
+        internal bool RemoveKnownVehicle(string reg)
+        {
+            if (_knownVehicles.ContainsKey(reg)) { _knownVehicles.Remove(reg); return true; }
+            else { return false; }
+            
+
+        }
+
+        internal bool IsVehicleKnown(string reg)
+        {
+            if (_knownVehicles.ContainsKey(reg)) { return true; }
+            else { return false; }
+            
+        }
+
+        internal void ParkKnownVehicle(string reg)
+        {
+            ParkVehicle(_knownVehicles[reg]);
         }
 
         internal List<T> ListVehicles()
@@ -56,7 +86,7 @@ namespace Exercise5_Garage
         internal bool ParkVehicle(Vehicle v)
         {
             int spot = FindSpot();
-            if (spot >= 0 && spot < _capacity)
+            if (spot >= 0 && spot < Capacity)
             {
                 _vehicles[spot] = (T)v;
                 _freeSpots--;
@@ -65,7 +95,7 @@ namespace Exercise5_Garage
             return false;
         }
 
-        internal bool RemoveVehicle(string reg)
+        internal bool VehicleDeparture(string reg)
         {
             foreach (T v in _vehicles)
             {
@@ -95,7 +125,7 @@ namespace Exercise5_Garage
 
         internal T[] OneTimeUseMethodThatOnlyExistsForAestheticsAndNeverAgain()
         {
-            return (T[])_vehicles;
+            return _vehicles;
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -109,5 +139,6 @@ namespace Exercise5_Garage
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
+        
     }
 }
