@@ -3,7 +3,7 @@
     internal class Airplane : Vehicle
     {
         public double Wingspan { get; }
-        public Airplane(string type, string make, string model, string reg, string color, int wheels, int passengers, double wingspan) : base(type, make, model, reg, color, wheels, passengers)
+        public Airplane(string reg, string make, string model, string type, string color, double wingspan) : base(reg, make, model, type, color)
         {
             Wingspan = wingspan;
         }

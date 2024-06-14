@@ -3,14 +3,14 @@
     internal class Car : Vehicle
     {
         private string VIN { get; }
-        public Car(string type, string make, string model, string reg, string color, int wheels, int passengers, string vin) : base(type, make, model, reg, color, wheels, passengers)
+        public Car(string reg, string make, string model, string type, string color, string vin) : base(reg, make, model, type, color)
         {
             VIN = vin;
         }
 
         public override string ToString()
         {
-            return base.ToString() + $", VIN number: {VIN}.";
+            return base.ToString() + $" and the VIN number: {VIN}.";
         }
     }
 }

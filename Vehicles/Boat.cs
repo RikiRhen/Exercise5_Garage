@@ -3,14 +3,14 @@
     internal class Boat : Vehicle
     {
         public int EngineCount { get; }
-        public Boat(string type, string make, string model, string reg, string color, int wheels, int passengers, int engineCount) : base(type, make, model, reg, color, wheels, passengers)
+        public Boat(string reg, string make, string model, string type, string color, int engineCount) : base(reg, make, model, type, color)
         {
             EngineCount = engineCount;
         }
 
         public override string ToString()
         {
-            return base.ToString() + $" with {EngineCount} engine(s).";
+            return base.ToString() + $" and {EngineCount} engine(s).";
         }
     }
 }

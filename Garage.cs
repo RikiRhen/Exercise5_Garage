@@ -69,11 +69,14 @@ namespace Exercise5_Garage
         {
             foreach (T v in _vehicles)
             {
-                if (v.Reg == reg)
+                if (v != null)
                 {
-                    int index = Array.IndexOf(_vehicles, v);
-                    _vehicles[index] = null!;
-                    return true;
+                    if (v.Reg == reg)
+                    {
+                        int index = Array.IndexOf(_vehicles, v);
+                        _vehicles[index] = null!;
+                        return true;
+                    }
                 }
             }
             return false;

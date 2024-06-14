@@ -6,9 +6,9 @@ namespace Exercise5.Tester
     public class GarageTester
     {
         Garage<Vehicle> garage = new(50);
-        Car car = new Car("Supercar", "Audi", "R8", "BAB113", "Copper", 4, 2, "512");
-        Car car2 = new Car("Supercar", "Lamborghini", "Murcielago", "CCA 332", "Metallic", 4, 2, "114");
-        Bus bus = new Bus("Bus", "Scania", "K94UB", "BAB112", "Blue", 6, 40, false);
+        Car car = new("BAB113", "Audi", "R8", "Supercar", "Copper", "512");
+        Car car2 = new("CCA 332", "Lamborghini", "Murcielago", "Supercar", "Metallic", "114");
+        Bus bus = new("BAB002", "Scania", "K94UB", "Bus", "Blue", false);
 
 
         [Fact]

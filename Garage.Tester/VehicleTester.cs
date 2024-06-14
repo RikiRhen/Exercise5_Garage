@@ -8,49 +8,49 @@ namespace Exercise5.Tester
         [Fact]
         public void Airplane_MakeSureReturnsToStringCorrectly()
         {
-            Airplane test = new("Airplane", "Boeing", "Airbus 704", "121", "White", 6, 250, 55);
+            Airplane test = new("121", "Boeing", "Airbus 704", "Airplane", "White", 55);
             string result = test.ToString();
-            string expected = "Boeing Airbus 704, a White Airplane with 6 wheels that holds 250 passenger(s) with a wingspan of 55m.";
+            string expected = "Boeing Airbus 704, a White Airplane with the license plate 121 with a wingspan of 55m.";
             Assert.Equal(expected, result);
         }
 
         [Fact]
         public void Boat_MakeSureReturnsToStringCorrectly()
         {
-            Boat test = new("Sailboat", "Yacht", "X99", "999", "White with blue stripes", 0, 8, 1);
+            Boat test = new("999", "Yacht", "X99", "Sailboat", "White with blue stripes", 1);
             string result = test.ToString();
-            string expected = "Yacht X99, a White with blue stripes Sailboat with 0 wheels that holds 8 passenger(s) with 1 engine(s).";
+            string expected = "Yacht X99, a White with blue stripes Sailboat with the license plate 999 and 1 engine(s).";
             Assert.Equal(expected, result);
         }
 
         [Fact]
         public void Bus_MakeSureReturnsToStringCorrectly()
         {
-            Bus test = new("Bus", "Scania", "K94UB", "BAB112", "Blue", 6, 40, false);
+            Bus test = new("BAB112", "Scania", "K94UB", "Bus",  "Blue", false);
             string result = test.ToString();
-            string expected = "Scania K94UB, a Blue Bus with 6 wheels that holds 40 passenger(s).";
+            string expected = "Scania K94UB, a Blue Bus with the license plate BAB112.";
             Assert.Equal(expected, result);
-            test = new("Bus", "Scania", "K94UB", "BAB112", "Blue", 6, 40, true);
+            test = new("BAB112", "Scania", "K94UB", "Bus", "Blue", true);
             result = test.ToString();
-            expected = "Scania K94UB, a Blue Bus with 6 wheels that holds 40 passenger(s). This is a double decker bus.";
+            expected = "Scania K94UB, a Blue Bus with the license plate BAB112. This is a double decker bus.";
             Assert.Equal(expected, result);
         }
 
         [Fact]
         public void Car_MakeSureReturnsToStringCorrectly()
         {
-            Car test = new("Supercar", "Audi", "R8", "BAB113", "Copper", 4, 2, "512");
+            Car test = new("BAB113", "Audi", "R8", "Supercar", "Copper", "512");
             string result = test.ToString();
-            string expected = "Audi R8, a Copper Supercar with 4 wheels that holds 2 passenger(s), VIN number: 512.";
+            string expected = "Audi R8, a Copper Supercar with the license plate BAB113 and the VIN number: 512.";
             Assert.Equal(expected, result);
         }
 
         [Fact]
         public void Motorcycle_MakeSureReturnsToStringCorrectly()
         {
-            Motorcycle test = new("Motorcycle", "Hayabusa", "Ninja H2", "BBA 221", "Black", 2, 1, 998);
+            Motorcycle test = new("BBA221", "Hayabusa", "Ninja H2", "Motorcycle", "Black", 998);
             string result = test.ToString();
-            string expected = "Hayabusa Ninja H2, a Black Motorcycle with 2 wheels that holds 1 passenger(s) with a 998 CC engine.";
+            string expected = "Hayabusa Ninja H2, a Black Motorcycle with the license plate BBA221 and a 998 CC engine.";
             Assert.Equal(expected, result);
         }
 

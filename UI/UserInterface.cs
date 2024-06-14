@@ -1,13 +1,9 @@
-﻿namespace Exercise5_Garage.UI
+﻿using System.Linq.Expressions;
+
+namespace Exercise5_Garage.UI
 {
-    internal class UserInterface<T>
+    internal class UserInterface
     {
-        internal void PrintMenu()
-        {
-            //Goes to manager-class when implemented
-            Console.Clear();
-            Console.WriteLine(GetMenu());
-        }
         internal string GetMenu()
         {
             return "Garage Menu: " +
@@ -19,6 +15,81 @@
                 "\n6. Search for plate." +
                 "\n7. Search based on property." + //ToDo
                 "\nExit - to close the program.";
+        }
+
+        internal void WaitForUserInput()
+        {
+            Console.WriteLine("Press enter to continue.");
+            Console.ReadLine();
+        }
+
+        public string GetString(string prompt)
+        {
+            string? result;
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine(prompt);
+                    result = Console.ReadLine();
+
+                    if (string.IsNullOrEmpty(result) || string.IsNullOrWhiteSpace(result))
+                    {
+                        throw new ArgumentException("Input cannot be empty or consist only of white space.");
+                    }
+
+                    return result.ToUpper();
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+
+        public double GetNumber(string prompt)
+        {
+            double result = -1;
+
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine(prompt);
+                    double.TryParse(Console.ReadLine(), out result);
+
+                    if (result == -1)
+                    {
+                        throw new ArgumentException("Input cannot be a negative number.");
+                    }
+                    return result;
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+
+        internal bool GetBoolean(string prompt)
+        {
+            while (true)
+            {
+                string input = GetString(prompt).ToUpper();
+
+                if (input.Equals("YES"))
+                {
+                    return true;
+                }
+                else if (input.Equals("NO"))
+                {
+                    return false;
+                }
+                else
+                {
+                    Console.WriteLine("Could not register your answer. Please write 'Yes' or 'No'");
+                }
+            }
         }
 
         internal void PrintSpaces(Vehicle[] list)

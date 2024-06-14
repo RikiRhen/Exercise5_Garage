@@ -3,7 +3,7 @@
     internal class Bus : Vehicle
     {
         private bool DoubleDecker;
-        public Bus(string type, string make, string model, string reg, string color, int wheels, int passengers, bool doubleDecker) : base(type, make, model, reg, color, wheels, passengers)
+        public Bus(string reg, string make, string model, string type, string color, bool doubleDecker) : base(reg, make, model, type, color)
         {
             DoubleDecker = doubleDecker;
         }
