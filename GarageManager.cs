@@ -10,9 +10,7 @@ namespace Exercise5_Garage
         Dictionary<string, Garage<Vehicle>> locations = new();
         Garage<Vehicle> garage = new(50, "TEST");
         GarageHandler handler = new GarageHandler();
-        
-        
-        
+
         public void Run()
         {
             bool running = true;
@@ -50,7 +48,7 @@ namespace Exercise5_Garage
                         UI.WaitForUserInput();
                         break;
                     case "7":
-                        FindVehiclesByProperty();
+                        handler.FindVehiclesByProperty(garage);
                         break;
                     case "0":
                         ChangeLocation();
@@ -198,7 +196,7 @@ namespace Exercise5_Garage
             UI.WaitForUserInput();
         }
 
-        private void PopulateLocation()
+        private void PopulateLocation() //For populating locations with a collection of testing vehicles.
         {
             List<Vehicle> testVehicles = new List<Vehicle> {
             new Car("BBA221", "AUDI", "R8", "SUPERCAR", "COPPER", "521"),
@@ -240,92 +238,6 @@ namespace Exercise5_Garage
                 Console.WriteLine($"Populated {garage.Name} with {testVehicles.Count} vehicle(s).");
                 UI.WaitForUserInput();
             }
-        }
-
-        private void FindVehiclesByProperty()
-        {
-            List<Vehicle> vehicles = garage.ListVehicles();
-            List<Vehicle> finishedList = new();
-            Dictionary<string, string> criteria = GetFilters();
-
-            if (vehicles.Count == 0)
-            {
-                Console.WriteLine("List of vehicles at this location is empty.");
-                return;
-            }
-
-            List<Vehicle> tempList = new();
-            foreach (var key in criteria)
-            {
-                switch (key.Key)
-                {
-                    case "CATEGORY":
-                        tempList = vehicles.Where(v => v.Category.Equals(criteria[key.Key])).ToList();
-                        vehicles = tempList.ToList();
-                        break;
-                    case "MAKE":
-                        tempList = vehicles.Where(v => v.Make.Equals(criteria[key.Key])).ToList();
-                        vehicles = tempList.ToList();
-                        break;
-                    case "MODEL":
-                        tempList = vehicles.Where(v => v.Model.Equals(criteria[key.Key])).ToList();
-                        vehicles = tempList.ToList();
-                        break;
-                    case "TYPE":
-                        tempList = vehicles.Where(v => v.Type.Equals(criteria[key.Key])).ToList();
-                        vehicles = tempList.ToList();
-                        break;
-                    case "COLOR":
-                        tempList = vehicles.Where(v => v.Color.Equals(criteria[key.Key])).ToList();
-                        vehicles = tempList.ToList();
-                        break;
-                    //case "WINGSPAN":
-                    //    tempList = vehicles.Where(v => v.Wingspan.Equals(criteria[key.Value])).ToList();
-                    //    vehicles = tempList.ToList();
-                }
-            }
-
-            finishedList = tempList.ToList();
-
-            if (!finishedList.Any())
-            {
-                Console.WriteLine("No vehicles with the set filters were found.");
-            }
-            else
-            {
-                Console.WriteLine("Printing list of vehicles based on your set filters:");
-                foreach (var vehicle in finishedList)
-                {
-                    Console.WriteLine(vehicle);
-                }
-            }
-
-            UI.WaitForUserInput();
-        }
-
-        private Dictionary<string, string> GetFilters()
-        {
-            var criteria = new Dictionary<string, string>();
-            string input;
-
-            do
-            {
-                string property = UI.GetString("Enter the property you want to filter by;\n" +
-                    "Make, Model, Type, Color, Category (e.g. Motorcycle or Car)\n" +
-                    "or enter 'done' to finish: ");
-
-                if (property.ToUpper() == "DONE")
-                {
-                    break;
-                }
-
-                string value = UI.GetString($"Enter the {property} you wish to filter with: ");
-                criteria.Add(property, value);
-                input = UI.GetString("Do you want to add another filter? (yes/no): ");
-
-            } while (input.ToUpper() != "NO");
-
-            return criteria;
         }
     }
 }

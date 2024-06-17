@@ -29,14 +29,17 @@ namespace Exercise5_Garage
 
         internal void ListVehicles(Garage<Vehicle> garage)
         {
+            Console.Clear();
+            Console.WriteLine($"Vehicles currently parked in {garage.Name}:");
             foreach (Vehicle v in garage.ListVehicles()) { Console.WriteLine(v); }
             UI.PrintSpaces(garage.OneTimeUseMethodThatOnlyExistsForAestheticsAndNeverAgain());
         }
 
         internal void ListTypes(Garage<Vehicle> garage)
         {
+            Console.Clear();
             var list = garage.FindTypes();
-            Console.WriteLine("Types of vehicles in the garage:");
+            Console.WriteLine($"Types of vehicles currently parked in {garage.Name}:");
             foreach (var key in list) { Console.WriteLine($"{key.Key}: {key.Value}"); }
         }
 
@@ -94,45 +97,10 @@ namespace Exercise5_Garage
             return mc;
         }
 
-        //Kallning: Car car = ChatGPTVersion<Car>();
-        //          Bus bus = ChatGPTVersion<Bus>();
-
-        //public static T ChatGPTVersion<T>() where T : Vehicle
-        //{
-        //    Type type = typeof(T);
-        //    ConstructorInfo[] constructors = type.GetConstructors();
-        //    ConstructorInfo constructor = constructors.First();
-
-        //    ParameterInfo[] parameters = constructor.GetParameters();
-        //    object[] args = new object[parameters.Length];
-
-        //    for (int i = 0; i < parameters.Length; i++)
-        //    {
-        //        ParameterInfo param = parameters[i];
-        //        Console.Write($"Enter {param.Name} ({param.ParameterType.Name }): ");
-
-        //        switch (Type.GetTypeCode(param.ParameterType))
-        //        {
-        //            case TypeCode.Boolean:
-
-        //                break;
-        //            case: TypeCode.
-
-        //            default:
-        //                break;
-        //        }
-
-        //        string input = Console.ReadLine();
-
-        //        args[i] = Convert.ChangeType(input, param.ParameterType);
-        //    }
-
-        //    return (T)constructor.Invoke(args);
-        //}
-
         internal void FindPlateInGarage(string plate, Garage<Vehicle> garage)
         {
-            if (garage.FindPlate(plate)) { Console.WriteLine($"A vehicle with the registry number {plate} is parked in the garage."); }
+            Console.Clear();
+            if (garage.FindPlate(plate)) { Console.WriteLine($"A vehicle with the registry number {plate} is parked at the location."); }
             else { Console.WriteLine(NOSUCHCAR); }
         }
 
@@ -140,6 +108,92 @@ namespace Exercise5_Garage
         {
             if (garage.IsVehicleKnown(reg)) { garage.ParkKnownVehicle(reg); return true; } 
             else { return false; }
+        }
+
+        internal void FindVehiclesByProperty(Garage<Vehicle> garage)
+        {
+            List<Vehicle> vehicles = garage.ListVehicles();
+            List<Vehicle> finishedList = new();
+            Dictionary<string, string> criteria = GetFilters();
+
+            if (vehicles.Count == 0)
+            {
+                Console.WriteLine("List of vehicles at this location is empty.");
+                return;
+            }
+
+            List<Vehicle> tempList = new();
+            foreach (var key in criteria)
+            {
+                switch (key.Key)
+                {
+                    case "CATEGORY":
+                        tempList = vehicles.Where(v => v.Category.Equals(criteria[key.Key])).ToList();
+                        vehicles = tempList.ToList();
+                        break;
+                    case "MAKE":
+                        tempList = vehicles.Where(v => v.Make.Equals(criteria[key.Key])).ToList();
+                        vehicles = tempList.ToList();
+                        break;
+                    case "MODEL":
+                        tempList = vehicles.Where(v => v.Model.Equals(criteria[key.Key])).ToList();
+                        vehicles = tempList.ToList();
+                        break;
+                    case "TYPE":
+                        tempList = vehicles.Where(v => v.Type.Equals(criteria[key.Key])).ToList();
+                        vehicles = tempList.ToList();
+                        break;
+                    case "COLOR":
+                        tempList = vehicles.Where(v => v.Color.Equals(criteria[key.Key])).ToList();
+                        vehicles = tempList.ToList();
+                        break;
+                        //case "WINGSPAN":
+                        //    tempList = vehicles.Where(v => v.Wingspan.Equals(criteria[key.Value])).ToList();
+                        //    vehicles = tempList.ToList();
+                }
+            }
+
+            finishedList = tempList.ToList();
+
+            if (!finishedList.Any())
+            {
+                Console.WriteLine("No vehicles with the set filters were found.");
+            }
+            else
+            {
+                Console.WriteLine("Printing list of vehicles based on your set filters:");
+                foreach (var vehicle in finishedList)
+                {
+                    Console.WriteLine(vehicle);
+                }
+            }
+
+            UI.WaitForUserInput();
+        }
+
+        private Dictionary<string, string> GetFilters()
+        {
+            var criteria = new Dictionary<string, string>();
+            string input;
+
+            do
+            {
+                string property = UI.GetString("Enter the property you want to filter by;\n" +
+                    "Make, Model, Type, Color, Category (e.g. Motorcycle or Car)\n" +
+                    "or enter 'done' to finish: ");
+
+                if (property.ToUpper() == "DONE")
+                {
+                    break;
+                }
+
+                string value = UI.GetString($"Enter the {property} you wish to filter with: ");
+                criteria.Add(property, value);
+                input = UI.GetString("Do you want to add another filter? (yes/no): ");
+
+            } while (input.ToUpper() != "NO");
+
+            return criteria;
         }
     }
 }
