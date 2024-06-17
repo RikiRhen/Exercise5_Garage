@@ -3,6 +3,7 @@
     internal class Airplane : Vehicle
     {
         public double Wingspan { get; }
+        public override string Category { get; } = "AIRPLANE";
         public Airplane(string reg, string make, string model, string type, string color, double wingspan) : base(reg, make, model, type, color)
         {
             Wingspan = wingspan;

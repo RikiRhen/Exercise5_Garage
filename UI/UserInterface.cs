@@ -13,7 +13,7 @@ namespace Exercise5_Garage.UI
                 "\n4. Create new location with a set capacity." +
                 "\n5. Populate the location from a preset of vehicles." +
                 "\n6. Search for plate." +
-                "\n7. Search based on property." + //ToDo
+                "\n7. Search based on property." + //WIP
                 "\n0. Switch location." +
                 "\nExit - to close the program.";
         }

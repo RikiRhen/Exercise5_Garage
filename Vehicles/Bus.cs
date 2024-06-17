@@ -3,6 +3,7 @@
     internal class Bus : Vehicle
     {
         private bool DoubleDecker;
+        public override string Category { get; } = "BUS";
         public Bus(string reg, string make, string model, string type, string color, bool doubleDecker) : base(reg, make, model, type, color)
         {
             DoubleDecker = doubleDecker;

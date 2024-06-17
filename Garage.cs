@@ -92,6 +92,7 @@ namespace Exercise5_Garage
                 _freeSpots--;
                 return true;
             }
+            Console.WriteLine("Location is full. Cannot park vehicle here right now.");
             return false;
         }
 
