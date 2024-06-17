@@ -2,9 +2,9 @@
 
 namespace Exercise5_Garage.UI
 {
-    internal class UserInterface
+    internal class UserInterface : IUserInterface
     {
-        internal string GetMenu(string garage)
+        public string GetMenu(string garage)
         {
             return $"{garage} Menu: " +
                 "\n1. List the parked vehicles." +
@@ -18,7 +18,7 @@ namespace Exercise5_Garage.UI
                 "\nExit - to close the program.";
         }
 
-        internal void WaitForUserInput()
+        public void WaitForUserInput()
         {
             Console.WriteLine("Press enter to continue.");
             Console.ReadLine();
@@ -72,7 +72,7 @@ namespace Exercise5_Garage.UI
             }
         }
 
-        internal bool GetBoolean(string prompt)
+        public bool GetBoolean(string prompt)
         {
             while (true)
             {

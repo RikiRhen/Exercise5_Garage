@@ -2,23 +2,23 @@
 
 namespace Exercise5_Garage
 {
-    internal class Garage<T> : IEnumerable<T> where T : Vehicle
+    internal class Garage<T> : IEnumerable<T>, IGarage<T> where T : Vehicle
     {
         public string Name { get; }
         public int Capacity { get; }
+        public int FreeSpots { get; private set; }
         private T[] _vehicles;
-        private int _freeSpots;
         private Dictionary<string, T> _knownVehicles = new();
 
         internal Garage(int capacity, string name)
         {
             _vehicles = new T[capacity];
-            _freeSpots = capacity;
+            FreeSpots = capacity;
             Capacity = capacity;
             Name = name;
         }
 
-        internal bool FindPlate(string plate)
+        public bool FindPlate(string plate)
         {
             foreach (var item in ListVehicles())
             {
@@ -30,17 +30,17 @@ namespace Exercise5_Garage
             return false;
         }
 
-        internal bool AddKnownVehicle(T item)
+        public bool AddKnownVehicle(T item)
         {
             if (_knownVehicles!.ContainsKey(item.Reg)) { return false; }
             else { _knownVehicles.Add(item.Reg, item); return true; }
         }
 
-        internal bool RemoveKnownVehicle(string reg)
+        public bool RemoveKnownVehicle(string reg)
         {
             if (_knownVehicles.ContainsKey(reg)) { _knownVehicles.Remove(reg); return true; }
             else { return false; }
-            
+
 
         }
 
@@ -48,22 +48,22 @@ namespace Exercise5_Garage
         {
             if (_knownVehicles.ContainsKey(reg)) { return true; }
             else { return false; }
-            
+
         }
 
-        internal void ParkKnownVehicle(string reg)
+        public void ParkKnownVehicle(string reg)
         {
             ParkVehicle(_knownVehicles[reg]);
         }
 
-        internal List<T> ListVehicles()
+        public List<T> ListVehicles()
         {
             List<T> list = new();
             foreach (Vehicle v in _vehicles) { if (v != null) { list.Add((T)v); } };
             return list;
         }
 
-        internal Dictionary<string, int> FindTypes()
+        public Dictionary<string, int> FindTypes()
         {
             Dictionary<string, int> list = new();
             foreach (T item in _vehicles)
@@ -83,20 +83,20 @@ namespace Exercise5_Garage
             return list;
         }
 
-        internal bool ParkVehicle(Vehicle v)
+        public bool ParkVehicle(Vehicle v)
         {
             int spot = FindSpot();
             if (spot >= 0 && spot < Capacity)
             {
                 _vehicles[spot] = (T)v;
-                _freeSpots--;
+                FreeSpots--;
                 return true;
             }
             Console.WriteLine("Location is full. Cannot park vehicle here right now.");
             return false;
         }
 
-        internal bool VehicleDeparture(string reg)
+        public bool VehicleDeparture(string reg)
         {
             foreach (T v in _vehicles)
             {
@@ -110,6 +110,7 @@ namespace Exercise5_Garage
                     }
                 }
             }
+            FreeSpots++;
             return false;
         }
 
@@ -140,6 +141,6 @@ namespace Exercise5_Garage
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        
+
     }
 }

@@ -8,7 +8,7 @@ namespace Exercise5_Garage
     {
         UserInterface UI = new UserInterface();
         Dictionary<string, Garage<Vehicle>> locations = new();
-        Garage<Vehicle> garage = new(50, "TEST");
+        Garage<Vehicle> garage = new(50, "BASIC GARAGE");
         GarageHandler handler = new GarageHandler();
 
         public void Run()
@@ -159,7 +159,7 @@ namespace Exercise5_Garage
                         running = false;
                         break;
                     default:
-                        Console.WriteLine("Only Car, Bus, Motorcycle, Airplane or Boat are accepted vehicle types. To return to previous menu enter 'Back'.");
+                        Console.WriteLine("Only Car, Bus, Motorcycle, Airplane or Boat are accepted vehicle types. To get back to the menu use the 'Back' command.");
                         break;
                 }
             }

@@ -8,26 +8,26 @@ using System.Runtime.ConstrainedExecution;
 
 namespace Exercise5_Garage
 {
-    internal class GarageHandler
+    internal class GarageHandler : IGarageHandler
     {
         private readonly static string NOSUCHCAR = "No vehicle with that registry number is parked in the garage.";
         UserInterface UI = new();
 
-        internal void ParkVehicle(Vehicle vehicle, Garage<Vehicle> garage)
+        public void ParkVehicle(Vehicle vehicle, Garage<Vehicle> garage)
         {
-            if (garage.ParkVehicle(vehicle)) 
-            { 
-                Console.WriteLine($"{vehicle.Make} {vehicle.Model} {vehicle.Reg}, was parked successfully."); 
+            if (garage.ParkVehicle(vehicle))
+            {
+                Console.WriteLine($"{vehicle.Make} {vehicle.Model} {vehicle.Reg}, was parked successfully.");
             }
         }
 
-        internal void RemoveVehicle(string reg, Garage<Vehicle> garage)
+        public void RemoveVehicle(string reg, Garage<Vehicle> garage)
         {
             if (garage.VehicleDeparture(reg)) { Console.WriteLine($"{reg} has left the garage."); }
             else { Console.WriteLine(NOSUCHCAR); }
         }
 
-        internal void ListVehicles(Garage<Vehicle> garage)
+        public void ListVehicles(Garage<Vehicle> garage)
         {
             Console.Clear();
             Console.WriteLine($"Vehicles currently parked in {garage.Name}:");
@@ -35,7 +35,7 @@ namespace Exercise5_Garage
             UI.PrintSpaces(garage.OneTimeUseMethodThatOnlyExistsForAestheticsAndNeverAgain());
         }
 
-        internal void ListTypes(Garage<Vehicle> garage)
+        public void ListTypes(Garage<Vehicle> garage)
         {
             Console.Clear();
             var list = garage.FindTypes();
@@ -97,20 +97,20 @@ namespace Exercise5_Garage
             return mc;
         }
 
-        internal void FindPlateInGarage(string plate, Garage<Vehicle> garage)
+        public void FindPlateInGarage(string plate, Garage<Vehicle> garage)
         {
             Console.Clear();
             if (garage.FindPlate(plate)) { Console.WriteLine($"A vehicle with the registry number {plate} is parked at the location."); }
             else { Console.WriteLine(NOSUCHCAR); }
         }
 
-        internal bool ParkKnownVehicle(string reg, Garage<Vehicle> garage)
+        public bool ParkKnownVehicle(string reg, Garage<Vehicle> garage)
         {
-            if (garage.IsVehicleKnown(reg)) { garage.ParkKnownVehicle(reg); return true; } 
+            if (garage.IsVehicleKnown(reg)) { garage.ParkKnownVehicle(reg); return true; }
             else { return false; }
         }
 
-        internal void FindVehiclesByProperty(Garage<Vehicle> garage)
+        public void FindVehiclesByProperty(Garage<Vehicle> garage)
         {
             List<Vehicle> vehicles = garage.ListVehicles();
             List<Vehicle> finishedList = new();
