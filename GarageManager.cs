@@ -200,7 +200,7 @@ namespace Exercise5_Garage
         {
             List<Vehicle> testVehicles = new List<Vehicle> {
             new Car("BBA221", "AUDI", "R8", "SUPERCAR", "COPPER", "521"),
-            new Airplane ("2212", "BOEING", "747", "PASSANGER PLANE", "WHITE", 64),
+            new Airplane ("2212", "BOEING", "747", "PASSANGER PLANE", "WHITE", 64.5),
             new Boat ("98521AF4", "YACHT", "X99", "SAILBOAT", "WHITE", 1),
             new Motorcycle("HHH222", "HAYABUSA", "NINJA H2", "MC", "BLACK", 998),
             new Bus("BAB112", "SCANIA", "K94UB", "BUS", "BLUE", false),
@@ -212,7 +212,10 @@ namespace Exercise5_Garage
             new Bus("GOA589", "BEULAS", "JEWEL", "DOUBLEDECKER", "RED", true),
             new Bus("MGA512", "SCANIA", "TOURING", "BUS", "BLUE", false),
             new Motorcycle("KMJ982", "HONDA", "CBR650R", "MC", "RED", 649),
-            new Motorcycle("KDF645", "DUCATI", "DIAVEL V4", "MC", "RED", 1158)
+            new Motorcycle("KDF645", "DUCATI", "DIAVEL V4", "MC", "RED", 1158),
+            new Motorcycle("HHH221", "HAYABUSA", "NINJA H2", "MC", "BLUE", 998),
+            new Motorcycle("HHH223", "HAYABUSA", "NINJA H2", "MC", "RED", 998)
+
             };
 
             if (testVehicles.Count > garage.Capacity) 

@@ -95,9 +95,36 @@ namespace Exercise5_Garage
                         tempList = vehicles.Where(v => v.Color.Equals(criteria[key.Key])).ToList();
                         vehicles = tempList.ToList();
                         break;
-                        //case "WINGSPAN":
-                        //    tempList = vehicles.Where(v => v.Wingspan.Equals(criteria[key.Value])).ToList();
-                        //    vehicles = tempList.ToList();
+                    case "WINGSPAN":
+                        tempList = vehicles
+                            .OfType<Airplane>()
+                            .Where(v => v.Wingspan.ToString().Equals(criteria[key.Key])).ToList<Vehicle>();
+                        vehicles = tempList.ToList();
+                        break;
+                    case "CC":
+                        tempList = vehicles
+                            .OfType<Motorcycle>()
+                            .Where(v => v.CubicEngine.ToString().Equals(criteria[key.Key])).ToList<Vehicle>();
+                        vehicles = tempList.ToList();
+                        break;
+                    case "VIN":
+                        tempList = vehicles
+                            .OfType<Car>()
+                            .Where(v => v.VIN.Equals(criteria[key.Key])).ToList<Vehicle>();
+                        vehicles = tempList.ToList();
+                        break;
+                    case "ENGINES":
+                        tempList = vehicles
+                            .OfType<Boat>()
+                            .Where(v => v.EngineCount.ToString().Equals(criteria[key.Key])).ToList<Vehicle>();
+                        vehicles = tempList.ToList();
+                        break;
+                    case "DOUBLE DECKER":
+                        tempList = vehicles
+                            .OfType<Bus>()
+                            .Where(v => v.DoubleDecker.ToString().Equals(criteria[key.Key], StringComparison.OrdinalIgnoreCase)).ToList<Vehicle>();
+                        vehicles = tempList.ToList();
+                        break;
                 }
             }
 
@@ -180,8 +207,15 @@ namespace Exercise5_Garage
 
             do
             {
+                Console.Clear();
                 string property = UI.GetString("Enter the property you want to filter by;\n" +
-                    "Make, Model, Type, Color, Category (e.g. Motorcycle or Car)\n" +
+                    "Make, Model, Type, Color, Category (e.g. Motorcycle or Car).\n" +
+                    "Even specialized properties are accepted. These are:\n" +
+                    "Wingspan (for wingspan of airplanes)\n" +
+                    "CC (for CC of motorcycle engine)\n" +
+                    "VIN (for VIN number on cars)\n" +
+                    "Engines (for amount of engines on a boat)\n" +
+                    "Double Decker (for checking if a bus is double decker or not).\n" +
                     "or enter 'done' to finish: ");
 
                 if (property.ToUpper() == "DONE")
@@ -189,10 +223,40 @@ namespace Exercise5_Garage
                     break;
                 }
 
-                string value = UI.GetString($"Enter the {property} you wish to filter with: ");
-                criteria.Add(property, value);
-                input = UI.GetString("Do you want to add another filter? (yes/no): ");
+                switch (property.ToUpper())
+                {
+                    case "DOUBLE DECKER":
+                        bool dd = UI.GetBoolean("Filter by double deckers (yes) or normal busses (no): ");
+                        criteria.Add(property, dd.ToString());
+                        break;
 
+                    case "WINGSPAN":
+                        double wingspan = UI.GetNumber($"Enter the wingspan of the filter (in meters) with commas as decimal e.g. '15,5' : ");
+                        criteria.Add(property, wingspan.ToString());
+                        break;
+
+                    case "ENGINES":
+                    case "CC":
+                        int number = (int)UI.GetNumber($"Enter how many {property} you wish to filter with:");
+                        criteria.Add(property, number.ToString());
+                        break;
+
+                    case "MAKE":
+                    case "MODEL":
+                    case "TYPE":
+                    case "COLOR":
+                    case "CATEGORY":
+                    case "VIN":
+                        string value = UI.GetString($"Enter the {property} you wish to filter with: ");
+                        criteria.Add(property, value);
+                        break;
+
+                    default:
+                        Console.WriteLine("Unknown property. Please try again.");
+                        break;
+                }
+
+                input = UI.GetString("Do you want to add another filter? (yes/no): ");
             } while (input.ToUpper() != "NO");
 
             return criteria;
