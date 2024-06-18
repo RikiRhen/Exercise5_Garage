@@ -2,14 +2,14 @@
 using Exercise5_Garage;
 using Exercise5_Garage.Vehicles;
 
-namespace Garage.Tester
+namespace Exercise5.Tester
 {
     public class HandlerTester
     {
         private Garage<Vehicle> _garage = new(50, "TEST");
         private GarageHandler _handler = new();
         Car car = new Car("BBA221", "AUDI", "R8", "SUPERCAR", "COPPER", "521");
-       
+
 
         [Fact]
         public void ParkKnownVehicle()
