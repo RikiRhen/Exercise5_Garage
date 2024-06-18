@@ -218,7 +218,7 @@ namespace Exercise5_Garage
             if (testVehicles.Count > garage.Capacity) 
             { 
                 Console.WriteLine("List of test vehicles exceeds the capacity of current location.\n" +
-                "Will proceed with filling the location from test vehicle list but ignore the ones that can't fit."); 
+                "Will proceed with filling the location from test vehicle list but ignore the ones that can't fit.\n"); 
 
                 for (int i = 0; i < garage.Capacity; i++)
                 {
