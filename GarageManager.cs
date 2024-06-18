@@ -167,7 +167,7 @@ namespace Exercise5_Garage
 
         private void HandleDeparture()
         {
-            handler.RemoveVehicle(UI.GetString("Plate of vehicle leaving: "), garage);
+            handler.DepartVehicle(UI.GetString("Plate of vehicle leaving: "), garage);
             UI.WaitForUserInput();
         }
 
