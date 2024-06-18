@@ -85,7 +85,7 @@ namespace Exercise5_Garage
                         running = false;
                         break;
                     default:
-                        Console.WriteLine("Only the inputs of 'A', 'D' or 'back' work. Please try again");
+                        Console.WriteLine("Only the inputs of 'A', 'D' or 'back' are accepted inputs. Please try again");
                         break;
                 }
             }

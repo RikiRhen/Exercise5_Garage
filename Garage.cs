@@ -32,7 +32,8 @@ namespace Exercise5_Garage
 
         public bool AddKnownVehicle(T item)
         {
-            if (_knownVehicles!.ContainsKey(item.Reg)) { return false; }
+
+            if (_knownVehicles.Count > 0 && _knownVehicles.ContainsKey(item.Reg)) { return false; }
             else { _knownVehicles.Add(item.Reg, item); return true; }
         }
 

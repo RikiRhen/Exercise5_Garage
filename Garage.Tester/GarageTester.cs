@@ -12,7 +12,7 @@ namespace Exercise5.Tester
 
 
         [Fact]
-        public void AddVechile_CheckingMethodAddsVehicleProperly()
+        public void ParkVehicle_CorrectlyParksVehicle()
         {
             bool result = garage.ParkVehicle(car);
             Assert.True(result);
@@ -20,7 +20,7 @@ namespace Exercise5.Tester
         }
 
         [Fact]
-        public void RemoveVehicle()
+        public void VehicleDeparture_CorrectlyDepartsVehicle()
         {
             garage.ParkVehicle(car);
             bool result = garage.VehicleDeparture("BAB113");
