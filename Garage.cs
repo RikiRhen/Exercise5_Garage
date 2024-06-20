@@ -112,11 +112,11 @@ namespace Exercise5_Garage
                     {
                         int index = Array.IndexOf(_vehicles, v);
                         _vehicles[index] = null!;
+                        FreeSpots++;
                         return true;
                     }
                 }
             }
-            FreeSpots++;
             return false;
         }
 
