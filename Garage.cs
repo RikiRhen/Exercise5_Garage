@@ -87,6 +87,11 @@ namespace Exercise5_Garage
         public bool ParkVehicle(Vehicle v)
         {
             int spot = FindSpot();
+            if (_knownVehicles.ContainsKey(v.Reg))
+            {
+                Console.WriteLine("A vehicle with that licence plate is already registered. Parking failed.");
+                return false;
+            }
             if (spot >= 0 && spot < Capacity)
             {
                 _vehicles[spot] = (T)v;

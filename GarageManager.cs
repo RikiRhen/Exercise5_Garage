@@ -7,9 +7,9 @@ namespace Exercise5_Garage
     internal class GarageManager
     {
         UserInterface UI = new UserInterface();
+        GarageHandler handler = new GarageHandler();
         Dictionary<string, Garage<Vehicle>> locations = new();
         Garage<Vehicle> garage = new(50, "BASIC GARAGE");
-        GarageHandler handler = new GarageHandler();
 
         public void Run()
         {
