@@ -45,7 +45,7 @@ namespace Exercise5_Garage
 
         }
 
-        internal bool IsVehicleKnown(string reg)
+        public bool IsVehicleKnown(string reg)
         {
             if (_knownVehicles.ContainsKey(reg)) { return true; }
             else { return false; }
@@ -131,7 +131,7 @@ namespace Exercise5_Garage
             return result + 1;
         }
 
-        internal T[] OneTimeUseMethodThatOnlyExistsForAestheticsAndNeverAgain()
+        public T[] OneTimeUseMethodThatOnlyExistsForAestheticsAndNeverAgain()
         {
             return _vehicles;
         }

@@ -6,16 +6,16 @@ namespace Exercise5_Garage
 {
     internal class GarageManager
     {
-        UserInterface UI = new UserInterface();
-        GarageHandler handler = new GarageHandler();
+        IUserInterface UI = new UserInterface();
+        IGarageHandler handler = new GarageHandler();
         Dictionary<string, Garage<Vehicle>> locations = new();
-        Garage<Vehicle> garage = new(50, "BASIC GARAGE");
+        IGarage<Vehicle> garage = new Garage<Vehicle>(50, "BASIC GARAGE");
 
         public void Run()
         {
             bool running = true;
             string input = "";
-            locations.Add("TEST", garage);
+            locations.Add("TEST", (Garage<Vehicle>)garage);
             garage = locations["TEST"];
             
             while (running)

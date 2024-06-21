@@ -12,9 +12,11 @@ namespace Exercise5_Garage
         bool ParkVehicle(Vehicle v);
         bool RemoveKnownVehicle(string reg);
         bool VehicleDeparture(string reg);
+        bool IsVehicleKnown(string reg);
         Dictionary<string, int> FindTypes();
         void ParkKnownVehicle(string reg);
         IEnumerator<T> GetEnumerator();
         List<T> ListVehicles();
+        T[] OneTimeUseMethodThatOnlyExistsForAestheticsAndNeverAgain();
     }
 }

@@ -13,7 +13,7 @@ namespace Exercise5_Garage
         private readonly static string NOSUCHCAR = "No vehicle with that registry number is parked in the garage.";
         UserInterface UI = new();
 
-        public bool ParkVehicle(Vehicle vehicle, Garage<Vehicle> garage)
+        public bool ParkVehicle(Vehicle vehicle, IGarage<Vehicle> garage)
         {
             if (garage.ParkVehicle(vehicle))
             {
@@ -23,13 +23,13 @@ namespace Exercise5_Garage
             else { return false; }
         }
 
-        public bool DepartVehicle(string reg, Garage<Vehicle> garage)
+        public bool DepartVehicle(string reg, IGarage<Vehicle> garage)
         {
             if (garage.VehicleDeparture(reg)) { Console.WriteLine($"{reg} has left the garage."); return true; }
             else { Console.WriteLine(NOSUCHCAR); return false; }
         }
 
-        public void ListVehicles(Garage<Vehicle> garage)
+        public void ListVehicles(IGarage<Vehicle> garage)
         {
             Console.Clear();
             Console.WriteLine($"Vehicles currently parked in {garage.Name}:");
@@ -37,7 +37,7 @@ namespace Exercise5_Garage
             UI.PrintSpaces(garage.OneTimeUseMethodThatOnlyExistsForAestheticsAndNeverAgain());
         }
 
-        public void ListTypes(Garage<Vehicle> garage)
+        public void ListTypes(IGarage<Vehicle> garage)
         {
             Console.Clear();
             var list = garage.FindTypes();
@@ -45,20 +45,20 @@ namespace Exercise5_Garage
             foreach (var key in list) { Console.WriteLine($"{key.Key}: {key.Value}"); }
         }
 
-        public bool FindPlateInGarage(string plate, Garage<Vehicle> garage)
+        public bool FindPlateInGarage(string plate, IGarage<Vehicle> garage)
         {
             Console.Clear();
             if (garage.FindPlate(plate)) { Console.WriteLine($"A vehicle with the registry number {plate} is parked at the location."); return true; }
             else { Console.WriteLine(NOSUCHCAR); return false; }
         }
 
-        public bool ParkKnownVehicle(string reg, Garage<Vehicle> garage)
+        public bool ParkKnownVehicle(string reg, IGarage<Vehicle> garage)
         {
             if (garage.IsVehicleKnown(reg)) { garage.ParkKnownVehicle(reg); return true; }
             else { return false; }
         }
 
-        public void FindVehiclesByProperty(Garage<Vehicle> garage)
+        public void FindVehiclesByProperty(IGarage<Vehicle> garage)
         {
             List<Vehicle> vehicles = garage.ListVehicles();
             List<Vehicle> finishedList = new();
@@ -159,7 +159,7 @@ namespace Exercise5_Garage
             return result;
         }
 
-        internal Car CreateNewCar()
+        public Car CreateNewCar()
         {
             string[] parameters = GetBaseInfo();
             string VIN = UI.GetString("VIN: ");
@@ -168,14 +168,14 @@ namespace Exercise5_Garage
         }
 
 
-        internal Bus CreateNewBus()
+        public Bus CreateNewBus()
         {
             string[] parameters = GetBaseInfo();
             bool decker = UI.GetBoolean("Is the bus a double decker?: ");
             Bus bus = new(parameters[0], parameters[1], parameters[2], parameters[3], parameters[4], decker);
             return bus;
         }
-        internal Boat CreateNewBoat()
+        public Boat CreateNewBoat()
         {
             string[] parameters = GetBaseInfo();
             int engines = (int)UI.GetNumber("Number of engines: ");
@@ -183,7 +183,7 @@ namespace Exercise5_Garage
             return boat;
         }
 
-        internal Airplane CreateNewAirplane()
+        public Airplane CreateNewAirplane()
         {
             string[] parameters = GetBaseInfo();
             double wingspan = UI.GetNumber("Wingspan: ");
@@ -192,7 +192,7 @@ namespace Exercise5_Garage
         }
 
 
-        internal Motorcycle CreateNewMC()
+        public Motorcycle CreateNewMC()
         {
             string[] parameters = GetBaseInfo();
             int cc = (int)UI.GetNumber("CC of engine: ");
